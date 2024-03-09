@@ -1,0 +1,196 @@
+proxies:
+proxy-providers:
+  MasSam:
+    type: file
+    path: ./confs/MasSam.yaml
+    health-check:
+    enable: true
+    url: http://howdy.id/ping.php
+    interval: 300
+    
+    
+proxy-groups:
+  - name: 🤖🤖DARK-IT🤖🤖
+    type: load-balance
+    strategy: round-robin
+    disable-udp: false
+    use:
+      - MasSam
+  - name: 🎶️Streming🎶
+    type: load-balance
+    strategy: round-robin
+    use:
+      - MasSam
+  - name: 🧑‍💻Sosmed🧑‍💻
+    type: load-balance
+    strategy: round-robin
+    use:
+      - MasSam
+  - name: 🎮Gaming🎮
+    type: load-balance
+    strategy: round-robin
+    use:
+      - MasSam
+  - name: "Adblock"
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+
+  store-selected: true
+  store-fake-ip: true
+  use-host: true
+  enhanced-mode: fake-ip
+  listen: 0.0.0.0:7874
+  nameserver:
+    - 192.168.8.1
+    - 192.168.9.1
+    - https://dns.adguard.com/dns-query
+    - https://dns-google.com/dns-query
+    - tls://dns.adguard.com
+    - tls://dns-google.com/
+    - 1.1.1.1
+    - 8.8.8.8
+  fallback:
+    - 1.0.0.1
+    - https://dns.cloudflare.com/dns-query
+    - https://dns.google/dns-query
+    - 112.215.203.254
+  default-nameserver:
+    - 1.1.1.1
+    - 8.8.8.8
+    - 112.215.203.254
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - "*.lan"
+    - "*.localdomain"
+    - "*.example"
+    - "*.invalid"
+    - "*.localhost"
+    - "*.test"
+    - "*.local"
+    - "*.home.arpa"
+    - time.*.com
+    - time.*.gov
+    - time.*.edu.cn
+    - time.*.apple.com
+    - time1.*.com
+    - time2.*.com
+    - time3.*.com
+    - time4.*.com
+    - time5.*.com
+    - time6.*.com
+    - time7.*.com
+    - ntp.*.com
+    - ntp1.*.com
+    - ntp2.*.com
+    - ntp3.*.com
+    - ntp4.*.com
+    - ntp5.*.com
+    - ntp6.*.com
+    - ntp7.*.com
+    - "*.time.edu.cn"
+    - "*.ntp.org.cn"
+    - +.pool.ntp.org
+    - time1.cloud.tencent.com
+    - music.163.com
+    - "*.music.163.com"
+    - "*.126.net"
+    - musicapi.taihe.com
+    - music.taihe.com
+    - songsearch.kugou.com
+    - trackercdn.kugou.com
+    - "*.kuwo.cn"
+    - api-jooxtt.sanook.com
+    - api.joox.com
+    - joox.com
+    - y.qq.com
+    - "*.y.qq.com"
+    - streamoc.music.tc.qq.com
+    - mobileoc.music.tc.qq.com
+    - isure.stream.qqmusic.qq.com
+    - dl.stream.qqmusic.qq.com
+    - aqqmusic.tc.qq.com
+    - amobile.music.tc.qq.com
+    - "*.xiami.com"
+    - "*.music.migu.cn"
+    - music.migu.cn
+    - "*.msftconnecttest.com"
+    - "*.msftncsi.com"
+    - msftconnecttest.com
+    - msftncsi.com
+    - localhost.ptlogin2.qq.com
+    - localhost.sec.qq.com
+    - +.srv.nintendo.net
+    - +.stun.playstation.net
+    - xbox.*.microsoft.com
+    - xnotify.xboxlive.com
+    - +.battlenet.com.cn
+    - +.wotgame.cn
+    - +.wggames.cn
+    - +.wowsgame.cn
+    - +.wargaming.net
+    - proxy.golang.org
+    - stun.*.*
+    - stun.*.*.*
+    - +.stun.*.*
+    - +.stun.*.*.*
+    - +.stun.*.*.*.*
+    - heartbeat.belkin.com
+    - "*.linksys.com"
+    - "*.linksyssmartwifi.com"
+    - "*.router.asus.com"
+    - mesu.apple.com
+    - swscan.apple.com
+    - swquery.apple.com
+    - swdownload.apple.com
+    - swcdn.apple.com
+    - swdist.apple.com
+    - lens.l.google.com
+    - stun.l.google.com
+    - +.nflxvideo.net
+    - "*.square-enix.com"
+    - "*.finalfantasyxiv.com"
+    - "*.ffxiv.com"
+    - "*.mcdn.bilivideo.cn"
+    - +.media.dssott.com
+
+rule-providers:
+    Direct:
+      type: file
+      behavior: classical
+      path: ./confs/ruleset/Direct.yaml
+    Reject:
+      type: file
+      behavior: classical
+      path: ./confs/ruleset/Reject.yaml
+    Streaming:
+      type: file
+      behavior: classical
+      path: ./confs/ruleset/Streaming.yaml
+    Sosmed:
+      type: file
+      behavior: classical
+      path: ./confs/ruleset/Sosmed.yaml
+    Gaming:
+      type: file
+      behavior: classical
+      path: ./confs/ruleset/Gaming.yaml
+    Adblock:
+      type: file
+      behavior: classical
+      path: ./confs/ruleset/Adblock.yaml
+           
+rules:
+  - DST-PORT,7895,REJECT
+  - DST-PORT,7892,REJECT
+  - DST-PORT,7895,REJECT
+  - DST-PORT,7892,REJECT
+  - IP-CIDR,198.18.0.1/16,REJECT,no-resolve
+  - RULE-SET,Gaming,🎮Gaming🎮
+  - RULE-SET,Streaming,🎶️Streming🎶
+  - RULE-SET,Sosmed,🧑‍💻Sosmed🧑‍💻
+  - RULE-SET,Direct,DIRECT
+  - RULE-SET,Reject,REJECT
+  - RULE-SET,Adblock,REJECT
+  - MATCH,🤖🤖DARK-IT🤖🤖

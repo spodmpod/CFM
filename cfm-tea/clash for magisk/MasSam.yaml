@@ -1,0 +1,19 @@
+proxies:
+  - name: Trojan_HE3🇸🇬
+    server: 103.253.24.216
+    port: 443
+    type: trojan
+    password: 2b933600-e980-11ec-a309-1239d0255272
+    skip-cert-verify: true
+    sni: open.spotify.com
+    udp: true
+    tls: true
+  - name: Trojan_Rackh🇮🇩
+    server: 103.77.78.145
+    port: 443
+    type: trojan
+    password: 5f465030-e980-11ec-8cf5-1239d0255272
+    skip-cert-verify: true
+    sni: open.spotify.com
+    udp: true
+    tls: true

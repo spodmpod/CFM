@@ -1,0 +1,33 @@
+proxies:
+  - name: Sshkit_LB🇸🇬
+    server: 51.79.146.60
+    port: 443
+    type: vmess
+    uuid: 6fea1649-425b-4092-bf53-29792152c925
+    alterId: 0
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: open.spotify.com
+    network: ws
+    ws-opts:
+      path: /sshkit/nananja/62a5caaef26ed/
+      headers:
+        Host: api.spotify.com.pay.pointdns.site
+    udp: true
+  - name: Dynamic🇸🇬
+    server: dynamic-sg1b.obfs.xyz
+    port: 443
+    type: vmess
+    uuid: 783dc0d6-46f4-4e48-ac52-cdcfbae0a830
+    alterId: 0
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    servername: open.spotify.com
+    network: ws
+    ws-opts:
+      path: /fastssh
+      headers:
+        Host: open.spotify.com
+    udp: true
